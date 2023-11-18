@@ -28,7 +28,7 @@ class AppRouter {
 
   factory AppRouter.init() {
     final router = GoRouter(
-      initialLocation: Routes.discoverScreen.path,
+      initialLocation: Routes.bookingPage.path,
       routes: _routeBuilder().toList(),
     );
 

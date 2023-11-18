@@ -1,11 +1,11 @@
 enum Routes {
-  discoverScreen(
-    name: 'discoverScreen',
+  discoverPage(
+    name: 'discoverPage',
     path: '/',
   ),
-  bookingScree(
-    name: 'bookingScreen',
-    path: '/bookingScreen',
+  bookingPage(
+    name: 'bookingPage',
+    path: '/bookingPage',
   ),
   other(
     name: 'other',

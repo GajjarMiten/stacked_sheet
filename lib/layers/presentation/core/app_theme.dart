@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';
 
-mixin AppThemeMixin {
+interface class IAppTheme {
   final Color primaryColor = const Color(0xff090808);
   final Color secondaryColor = const Color(0xffFF3A6F);
 
@@ -24,10 +25,13 @@ mixin AppThemeMixin {
   TextStyle get bodyTextStyle => TextStyle(
         fontSize: 16.sp,
       );
+
+  Duration get animationDuration => 400.milliseconds;
+  Duration get animationDelay => 50.milliseconds;
 }
 
-class DarkTheme with AppThemeMixin {}
+class DarkTheme extends IAppTheme {}
 
-class LightTheme with AppThemeMixin {}
+class LightTheme extends IAppTheme {}
 
-final AppThemeMixin appTheme = DarkTheme();
+final IAppTheme appTheme = DarkTheme();
