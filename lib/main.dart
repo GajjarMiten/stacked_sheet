@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:stacked_sheet/layers/presentation/flow/discover_page/view/discover_page.dart';
+import 'package:stacked_sheet/layers/config/globals.dart';
 import 'package:stacked_sheet/layers/presentation/shared/sizer.dart';
 
 void main() {
@@ -13,14 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routerConfig: navigator.allRoutes,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
           textTheme: GoogleFonts.robotoTextTheme(),
         ),
-        home: DiscoverPage(),
       ),
     );
   }
