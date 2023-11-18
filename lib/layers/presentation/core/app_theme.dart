@@ -13,6 +13,7 @@ mixin AppThemeMixin {
 
   double get sizeH1 => 24.sp;
   double get sizeH2 => 20.sp;
+  double get sizeH3 => 18.sp;
   double get sizeH6 => 10.sp;
 
   TextStyle get headingTextStyle => TextStyle(
