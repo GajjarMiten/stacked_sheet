@@ -1,16 +1,53 @@
-
 import 'package:flutter/material.dart';
 
+/// A class that defines customizable options for the StackedSheetView.
 class StackedSheetOptions {
+  /// The duration of the animation when opening or closing the stacked sheet.
   final Duration? animationDuration;
+
+  /// The curve of the animation when opening or closing the stacked sheet.
   final Curve? animationCurve;
+
+  /// The shape of the stacked sheet.
   final ShapeBorder? shape;
+
+  /// The background color of the stacked sheet.
   final Color? sheetColor;
 
+  /// The duration of the animation when opening the stacked sheet.
   final Duration? sheetOpenDuration;
+
+  /// The curve of the animation when opening the stacked sheet.
   final Curve? sheetOpenCurve;
+
+  /// The duration of the animation when closing the stacked sheet.
   final Duration? sheetCloseDuration;
+
+  /// The curve of the animation when closing the stacked sheet.
   final Curve? sheetCloseCurve;
+
+  /// Constructs a [StackedSheetOptions] object with customizable parameters.
+  ///
+  /// - [animationDuration]: The duration of the animation when opening or closing the stacked sheet.
+  /// - [animationCurve]: The curve of the animation when opening or closing the stacked sheet.
+  /// - [shape]: The shape of the stacked sheet.
+  /// - [sheetColor]: The background color of the stacked sheet.
+  /// - [sheetOpenDuration]: The duration of the animation when opening the stacked sheet.
+  /// - [sheetOpenCurve]: The curve of the animation when opening the stacked sheet.
+  /// - [sheetCloseDuration]: The duration of the animation when closing the stacked sheet.
+  /// - [sheetCloseCurve]: The curve of the animation when closing the stacked sheet.
+  ///
+  /// Example:
+  /// ```dart
+  /// StackedSheetOptions(
+  ///   animationDuration: Duration(milliseconds: 500),
+  ///   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  ///   sheetColor: Colors.blue,
+  ///   sheetOpenDuration: Duration(milliseconds: 800),
+  ///   sheetOpenCurve: Curves.easeInOut,
+  ///   // ... other parameters
+  /// );
+  /// ```
   const StackedSheetOptions({
     this.animationDuration,
     this.animationCurve,
@@ -22,6 +59,7 @@ class StackedSheetOptions {
     this.sheetCloseCurve,
   });
 
+  /// Constructs a default [StackedSheetOptions] object with predefined values.
   const StackedSheetOptions.defaultOptions()
       : animationCurve = Curves.linear,
         animationDuration = const Duration(milliseconds: 700),
@@ -32,6 +70,7 @@ class StackedSheetOptions {
         sheetCloseDuration = const Duration(milliseconds: 700),
         sheetCloseCurve = Curves.linear;
 
+  /// Creates a new [StackedSheetOptions] instance with updated parameter values.
   StackedSheetOptions copyWith({
     Duration? animationDuration,
     Curve? animationCurve,
