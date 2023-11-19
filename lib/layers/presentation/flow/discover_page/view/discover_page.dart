@@ -32,7 +32,7 @@ class DiscoverPage extends StatelessWidget {
                     Row(
                       children: [
                         CustomText.h2(
-                          'Feeling Adveturous?',
+                          'Feeling Adventurous?',
                           fontWeight: FontWeight.bold,
                         ),
                       ],
