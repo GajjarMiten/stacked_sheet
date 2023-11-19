@@ -58,7 +58,7 @@ class TrendingLocationUI extends StatelessWidget {
             },
             options: CarouselOptions(
               height: boxHeight * 0.7,
-              viewportFraction: 0.75,
+              viewportFraction: 0.79,
               enlargeCenterPage: true,
               enlargeStrategy: CenterPageEnlargeStrategy.zoom,
             ),
@@ -87,9 +87,7 @@ class _TrendingPlaceContainerWrapper extends StatelessWidget {
         onTap: action,
         child: TrendingPlaceContainer(trendingPlaceEntity: trendingPlaceEntity),
       ),
-      openBuilder: (_, action) => BookingPage(
-        // placeEntity: trendingPlaceEntity
-        ),
+      openBuilder: (_, action) => BookingPage(placeEntity: trendingPlaceEntity),
     );
   }
 }
@@ -107,12 +105,13 @@ class _TrendingPlaceContainerState extends State<TrendingPlaceContainer> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final data = widget.trendingPlaceEntity;
+      final boxWidth = 70.w;
       return Stack(
         children: [
           Hero(
             tag: data.name,
             child: Container(
-              width: 350,
+              width: boxWidth,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
@@ -125,7 +124,7 @@ class _TrendingPlaceContainerState extends State<TrendingPlaceContainer> {
           Positioned(
             bottom: 0,
             child: Container(
-              width: 350,
+              width: boxWidth,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                 begin: Alignment.topCenter,

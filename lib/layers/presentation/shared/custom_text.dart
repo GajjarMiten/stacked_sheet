@@ -135,4 +135,20 @@ class CustomText extends Text {
                 wordSpacing: wordSpacing,
               ),
         );
+      
+  const CustomText.rich(
+    InlineSpan textSpan, {
+    this.color,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.height,
+    this.textUnderLine = false,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textStyle,
+    super.textAlign = TextAlign.center,
+    super.overflow,
+    super.key,
+  }) : super.rich(textSpan,style: textStyle);
 }

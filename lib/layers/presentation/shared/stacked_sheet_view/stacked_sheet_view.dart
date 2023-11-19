@@ -1,19 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:stacked_sheet/layers/presentation/core/app_theme.dart';
+import 'package:stacked_sheet/layers/presentation/shared/animations/fade_up_widget.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_controller.dart';
 import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';
 
+typedef WidgetBuilder = Widget Function(
+    BuildContext context, StackedSheetController controller);
+
 class StackedSheetView extends StatefulWidget {
   final Widget closedChild;
-
   final List<StackedSheetItem> items;
   final StackedSheetController controller;
+  final ShapeBorder? sheetShape;
+  final Color? sheetColor;
   const StackedSheetView({
     super.key,
     required this.closedChild,
     required this.controller,
-    required this.items,
+    this.items = const [],
+    this.sheetShape,
+    this.sheetColor,
   });
 
   @override
@@ -57,7 +64,7 @@ class _StackedSheetViewState extends State<StackedSheetView> {
 
           final item = widget.items[sheetIndex];
 
-          double position = -90;
+          double position = -140;
 
           final top = -position + (100.0 * sheetIndex);
 
@@ -65,24 +72,46 @@ class _StackedSheetViewState extends State<StackedSheetView> {
             top: top,
             child: Align(
               alignment: Alignment.topCenter,
-              child: Material(
-                child: SizedBox(
-                    width: double.infinity,
-                    height: 100.h - top,
-                    child: AnimatedCrossFade(
-                      crossFadeState: isCollapsed
-                          ? CrossFadeState.showFirst
-                          : CrossFadeState.showSecond,
-                      duration: appTheme.animationDuration,
-                      firstChild: item.collapsedWidget,
-                      secondChild: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          item.body,
-                          item.callToAction,
-                        ],
-                      ),
-                    )),
+              child: FadeUpWidget(
+                child: Material(
+                  color: widget.sheetColor,
+                  shape: widget.sheetShape,
+                  child: SizedBox(
+                      width: double.infinity,
+                      height: 100.h - top,
+                      child: AnimatedCrossFade(
+                        crossFadeState: isCollapsed
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
+                        duration: appTheme.animationDuration,
+                        firstChild: item.collapsedWidgetBuilder(
+                            context, widget.controller),
+                        secondChild: SizedBox(
+                          height: 100.h - top,
+                          child: Stack(
+                            children: [
+                              SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    item.bodyBuilder(
+                                        context, widget.controller),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                child: item.callToActionBuilder(
+                                    context, widget.controller),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
               ),
             ),
           );
@@ -97,41 +126,12 @@ class _StackedSheetViewState extends State<StackedSheetView> {
 }
 
 class StackedSheetItem {
-  final Widget callToAction;
-  final Widget collapsedWidget;
-  final Widget body;
+  final WidgetBuilder callToActionBuilder;
+  final WidgetBuilder collapsedWidgetBuilder;
+  final WidgetBuilder bodyBuilder;
   const StackedSheetItem({
-    required this.callToAction,
-    required this.collapsedWidget,
-    required this.body,
+    required this.callToActionBuilder,
+    required this.collapsedWidgetBuilder,
+    required this.bodyBuilder,
   });
 }
-
-// class _StackedSheetItemState  {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Material(
-//       color: appTheme.primaryInverseColor,
-//       shape: const RoundedRectangleBorder(
-//         borderRadius: BorderRadius.only(
-//           topLeft: Radius.circular(25),
-//           topRight: Radius.circular(25),
-//         ),
-//       ),
-//       elevation: 1,
-//       child: Container(
-//         padding: EdgeInsets.all(appTheme.paddingUnit),
-//         decoration: BoxDecoration(
-//           color: appTheme.primaryInverseColor,
-//           borderRadius: const BorderRadius.only(
-//             topLeft: Radius.circular(25),
-//             topRight: Radius.circular(25),
-//           ),
-//         ),
-//         height: context.height,
-//         width: context.width,
-//         child: (widget.isCollapsed) ? Text("collapsed") : widget.callToAction,
-//       ),
-//     );
-//   }
-// }

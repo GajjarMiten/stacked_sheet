@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_sheet/layers/config/globals.dart';
+import 'package:stacked_sheet/layers/presentation/core/app_theme.dart';
 import 'package:stacked_sheet/layers/presentation/shared/sizer.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         routerConfig: navigator.allRoutes,
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: appTheme.secondaryColor),
           useMaterial3: true,
           textTheme: GoogleFonts.robotoTextTheme(),
         ),

@@ -5,7 +5,7 @@ import 'package:stacked_sheet/layers/domain/enitity/trending_place_enitity.dart'
 import 'package:stacked_sheet/layers/presentation/core/app_theme.dart';
 import 'package:stacked_sheet/layers/presentation/core/extensions/context_extensions/media_query_extension.dart';
 import 'package:stacked_sheet/layers/presentation/core/extensions/widget_extensions/sizedbox_extension.dart';
-import 'package:stacked_sheet/layers/presentation/gen/assets.gen.dart';
+import 'package:stacked_sheet/layers/presentation/flow/booking_page/booking_sheets/calender_sheet.dart';
 import 'package:stacked_sheet/layers/presentation/shared/animations/fade_in_widget.dart';
 import 'package:stacked_sheet/layers/presentation/shared/custom_text.dart';
 import 'package:stacked_sheet/layers/presentation/shared/animations/fade_up_widget.dart';
@@ -14,15 +14,8 @@ import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stac
 import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';
 
 class BookingPage extends StatefulWidget {
-  final TrendingPlaceEntity placeEntity = TrendingPlaceEntity(
-      name: 'Ophiuchi',
-      province: 'KADUNA',
-      imageProvider: Assets.images.mars,
-      info:
-          'Santorini is the largest city in New Osogbo structure. It has a substantial atmosphere and is the most Earth-like satellite in the Solar System');
-  BookingPage({
-    super.key,
-  });
+  final TrendingPlaceEntity placeEntity;
+  const BookingPage({super.key, required this.placeEntity});
 
   @override
   State<BookingPage> createState() => _BookingPageState();
@@ -55,29 +48,36 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext context) {
     return StackedSheetView(
       controller: _stackedSheetController,
+      sheetColor: appTheme.primaryColor,
+      sheetShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
       items: [
         StackedSheetItem(
-          body: Text("body"),
-          collapsedWidget: CustomText("collapsed"),
-          callToAction: GestureDetector(
+          bodyBuilder: (_, controller) => const CalenderSheetBody(),
+          collapsedWidgetBuilder: (_, __) => CustomText("collapsed"),
+          callToActionBuilder: (_, controller) => GestureDetector(
+            onTap: controller.openNext,
+            child: const CalenderCallToAction(),
+          ),
+        ),
+        StackedSheetItem(
+          bodyBuilder: (_, controller) => const CalenderSheetBody(),
+          collapsedWidgetBuilder: (_, __) => CustomText("collapsed"),
+          callToActionBuilder: (_, __) => GestureDetector(
             onTap: _stackedSheetController.openNext,
             child: Text("data"),
           ),
         ),
         StackedSheetItem(
-          body: Text("body1"),
-          collapsedWidget: Text("collapsed2"),
-          callToAction: GestureDetector(
+          bodyBuilder: (_, controller) => const CalenderSheetBody(),
+          collapsedWidgetBuilder: (_, __) => CustomText("collapsed"),
+          callToActionBuilder: (_, __) => GestureDetector(
             onTap: _stackedSheetController.openNext,
-            child: Text("data1"),
-          ),
-        ),
-        StackedSheetItem(
-          body: Text("body2"),
-          collapsedWidget: Text("collapsed3"),
-          callToAction: GestureDetector(
-            onTap: _stackedSheetController.openNext,
-            child: Text("data2"),
+            child: Text("data"),
           ),
         ),
       ],
@@ -197,32 +197,31 @@ class _BookingPageState extends State<BookingPage> {
 
   Widget _buildHeader() {
     return FadeInWidget(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: EdgeInsets.all(appTheme.paddingUnit),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                onPressed: () {
-                  if (_stackedSheetController.hasOpenSheets) {
-                    _stackedSheetController.closeAll();
-                  } else {
-                    navigator.pop();
-                  }
-                },
-                color: appTheme.primaryInverseColor,
-              ),
-              CustomText.h6(data.province, color: appTheme.primaryInverseColor),
-              Icon(
-                Icons.more_vert_outlined,
-                color: appTheme.primaryInverseColor,
-              )
-            ],
-          ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: appTheme.paddingUnit,
+          vertical: 2 * appTheme.paddingUnit,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new_rounded),
+              onPressed: () {
+                if (_stackedSheetController.hasOpenSheets) {
+                  _stackedSheetController.closeAll();
+                } else {
+                  navigator.pop();
+                }
+              },
+              color: appTheme.primaryInverseColor,
+            ),
+            Icon(
+              Icons.more_vert_outlined,
+              color: appTheme.primaryInverseColor,
+            )
+          ],
         ),
       ),
     );

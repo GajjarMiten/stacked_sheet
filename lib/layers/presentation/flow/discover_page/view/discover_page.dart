@@ -10,11 +10,13 @@ class DiscoverPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appTheme.primaryColor,
-      body: Column(
-        children: [
-          const DiscoverPageAppBar(),
-          TrendingLocationUI(),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            const DiscoverPageAppBar(),
+            TrendingLocationUI(),
+          ],
+        ),
       ),
     );
   }

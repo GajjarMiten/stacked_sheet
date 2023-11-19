@@ -8,7 +8,7 @@ import 'package:stacked_sheet/layers/presentation/flow/discover_page/view/discov
 Widget getPage(Routes route, BuildContext context, GoRouterState state) {
   return switch (route) {
     Routes.discoverPage => const DiscoverPage(),
-    Routes.bookingPage => BookingPage(),
+    Routes.bookingPage => BookingPage(placeEntity: state.extra as TrendingPlaceEntity,),
     _ => const Text("404"),
   };
 }
