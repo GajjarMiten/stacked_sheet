@@ -12,6 +12,7 @@ import 'package:stacked_sheet/layers/presentation/shared/animations/fade_in_widg
 import 'package:stacked_sheet/layers/presentation/shared/custom_text.dart';
 import 'package:stacked_sheet/layers/presentation/shared/animations/fade_up_widget.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_controller.dart';
+import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_item.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_options.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_view.dart';
 import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';

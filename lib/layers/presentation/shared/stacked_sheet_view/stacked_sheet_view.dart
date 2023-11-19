@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:stacked_sheet/layers/presentation/core/app_theme.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_controller.dart';
+import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_item.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_options.dart';
 import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';
-
-typedef WidgetBuilder = Widget Function(
-    BuildContext context, StackedSheetController controller);
 
 class StackedSheetView extends StatefulWidget {
   final Widget closedChild;
@@ -63,7 +61,10 @@ class _StackedSheetViewState extends State<StackedSheetView> {
       final sheet = ValueListenableBuilder<int>(
         valueListenable: widget.controller,
         builder: (context, currentSheetIndex, child) {
-          if (currentSheetIndex < 0 || !widget.controller.isSheetOpened(sheetIndex)) return const SizedBox.shrink();
+          if (currentSheetIndex < 0 ||
+              !widget.controller.isSheetOpened(sheetIndex)) {
+            return const SizedBox.shrink();
+          }
           final isCollapsed = currentSheetIndex > sheetIndex;
 
           final item = widget.items[sheetIndex];
@@ -148,17 +149,4 @@ class _StackedSheetViewState extends State<StackedSheetView> {
 
     return sheets;
   }
-}
-
-class StackedSheetItem {
-  final WidgetBuilder callToActionBuilder;
-  final WidgetBuilder collapsedWidgetBuilder;
-  final WidgetBuilder bodyBuilder;
-  final double collapsedWidgetHeight;
-  const StackedSheetItem({
-    required this.callToActionBuilder,
-    required this.collapsedWidgetBuilder,
-    required this.bodyBuilder,
-    this.collapsedWidgetHeight = 100,
-  });
 }
