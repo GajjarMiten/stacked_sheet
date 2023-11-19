@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class StackedSheetController extends ValueNotifier<int> {
   final int _length;
+  final List<int> openedSheetIndexs = [];
   StackedSheetController({required int length})
       : _length = length,
         super(-1);
@@ -12,6 +13,7 @@ class StackedSheetController extends ValueNotifier<int> {
   void openNext() {
     if (value >= _length - 1) return;
     value++;
+    openedSheetIndexs.add(value);
     notifyListeners();
   }
 
@@ -23,6 +25,11 @@ class StackedSheetController extends ValueNotifier<int> {
 
   void closeAll() {
     value = -1;
+    openedSheetIndexs.clear();
     notifyListeners();
+  }
+
+  bool isSheetOpened(int index) {
+    return openedSheetIndexs.contains(index);
   }
 }

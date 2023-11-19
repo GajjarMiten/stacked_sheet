@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:stacked_sheet/layers/presentation/core/app_theme.dart';
 
 class FadeInWidget extends StatelessWidget {
   final Widget child;
@@ -11,7 +10,7 @@ class FadeInWidget extends StatelessWidget {
       required this.child,
       this.delayInMills = 0,
       int? durationInMills})
-      : durationInMills = durationInMills ?? 700;
+      : durationInMills = durationInMills ?? 400;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class FadeInWidget extends StatelessWidget {
         FadeEffect(
           begin: 0,
           end: 1,
-          duration: appTheme.animationDuration,
+          duration: Duration(milliseconds: durationInMills),
         ),
       ],
       child: child,

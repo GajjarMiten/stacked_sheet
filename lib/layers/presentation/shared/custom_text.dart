@@ -123,7 +123,7 @@ class CustomText extends Text {
           text,
           style: textStyle ??
               appTheme.headingTextStyle.copyWith(
-                color: color ?? Color(0xffE3E3E3).withOpacity(0.9),
+                color: color ?? const Color(0xffE3E3E3).withOpacity(0.9),
                 fontFamily: fontFamily,
                 fontSize: fontSize ?? appTheme.sizeH6,
                 fontWeight: FontWeight.w400,
@@ -135,7 +135,7 @@ class CustomText extends Text {
                 wordSpacing: wordSpacing,
               ),
         );
-      
+
   const CustomText.rich(
     InlineSpan textSpan, {
     this.color,
@@ -150,5 +150,5 @@ class CustomText extends Text {
     super.textAlign = TextAlign.center,
     super.overflow,
     super.key,
-  }) : super.rich(textSpan,style: textStyle);
+  }) : super.rich(textSpan, style: textStyle);
 }

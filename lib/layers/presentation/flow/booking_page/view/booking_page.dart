@@ -6,10 +6,13 @@ import 'package:stacked_sheet/layers/presentation/core/app_theme.dart';
 import 'package:stacked_sheet/layers/presentation/core/extensions/context_extensions/media_query_extension.dart';
 import 'package:stacked_sheet/layers/presentation/core/extensions/widget_extensions/sizedbox_extension.dart';
 import 'package:stacked_sheet/layers/presentation/flow/booking_page/booking_sheets/calender_sheet.dart';
+import 'package:stacked_sheet/layers/presentation/flow/booking_page/booking_sheets/number_selection_sheet.dart';
+import 'package:stacked_sheet/layers/presentation/flow/booking_page/booking_sheets/payment_sheet.dart';
 import 'package:stacked_sheet/layers/presentation/shared/animations/fade_in_widget.dart';
 import 'package:stacked_sheet/layers/presentation/shared/custom_text.dart';
 import 'package:stacked_sheet/layers/presentation/shared/animations/fade_up_widget.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_controller.dart';
+import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_options.dart';
 import 'package:stacked_sheet/layers/presentation/shared/stacked_sheet_view/stacked_sheet_view.dart';
 import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';
 
@@ -48,36 +51,46 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext context) {
     return StackedSheetView(
       controller: _stackedSheetController,
-      sheetColor: appTheme.primaryColor,
-      sheetShape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(25),
+      options: StackedSheetOptions(
+        sheetColor: appTheme.primaryColor,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(25),
+          ),
         ),
       ),
       items: [
         StackedSheetItem(
           bodyBuilder: (_, controller) => const CalenderSheetBody(),
-          collapsedWidgetBuilder: (_, __) => CustomText("collapsed"),
+          collapsedWidgetBuilder: (_, controller) => GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: controller.closeCurrent,
+            child: const CalenderCollapsedWidget(),
+          ),
           callToActionBuilder: (_, controller) => GestureDetector(
             onTap: controller.openNext,
             child: const CalenderCallToAction(),
           ),
         ),
         StackedSheetItem(
-          bodyBuilder: (_, controller) => const CalenderSheetBody(),
-          collapsedWidgetBuilder: (_, __) => CustomText("collapsed"),
-          callToActionBuilder: (_, __) => GestureDetector(
-            onTap: _stackedSheetController.openNext,
-            child: Text("data"),
+          bodyBuilder: (_, controller) => const NumberSelectionSheetBody(),
+          collapsedWidgetBuilder: (_, controller) => GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: controller.closeCurrent,
+            child: const NumberSelectionSheetCollapsedWidget(),
+          ),
+          callToActionBuilder: (_, controller) => GestureDetector(
+            onTap: controller.openNext,
+            child: const NumberSelectionCallToAction(),
           ),
         ),
         StackedSheetItem(
-          bodyBuilder: (_, controller) => const CalenderSheetBody(),
+          bodyBuilder: (_, controller) => const PaymentSheetBody(),
           collapsedWidgetBuilder: (_, __) => CustomText("collapsed"),
           callToActionBuilder: (_, __) => GestureDetector(
             onTap: _stackedSheetController.openNext,
-            child: Text("data"),
+            child: const Text("data"),
           ),
         ),
       ],

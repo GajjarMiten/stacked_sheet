@@ -72,6 +72,7 @@ class CalenderSheetBody extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: appTheme.paddingUnit),
           child: SizedBox(
+            height: 300,
             child: CalendarDatePicker(
               initialDate: DateTime.now(),
               firstDate: DateTime(2000),
@@ -173,7 +174,94 @@ class CalenderCallToAction extends StatelessWidget {
         color: appTheme.secondaryColor,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: Center(child: CustomText("SEAT",fontSize: 17.sp,)),
+      child: Center(
+          child: CustomText(
+        "SEAT",
+        fontSize: 17.sp,
+      )),
+    );
+  }
+}
+
+class CalenderCollapsedWidget extends StatelessWidget {
+  const CalenderCollapsedWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          FadeUpWidget(
+            child: _buildLocationIndicator(city: 'Lagos'),
+          ),
+          80.widthBox,
+          FadeUpWidget(
+            child: _buildLocationIndicator(isFrom: false, city: 'Santorini'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLocationIndicator({String city = '', bool isFrom = true}) {
+    Widget icon = Icon(
+      Icons.location_on,
+      color: appTheme.secondaryColor,
+      size: 27,
+    );
+
+    if (isFrom) {
+      icon = Icon(
+        Icons.circle_outlined,
+        color: appTheme.secondaryColor,
+      );
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        icon,
+        10.widthBox,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomText.rich(
+              TextSpan(children: [
+                TextSpan(text: "$city, "),
+                TextSpan(
+                  text: "LOS",
+                  style: TextStyle(
+                      color: appTheme.secondaryColor,
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.bold),
+                ),
+              ]),
+              textStyle: TextStyle(
+                color: appTheme.primaryInverseColor,
+                fontSize: 10.sp,
+              ),
+            ),
+            CustomText.rich(
+              TextSpan(children: [
+                TextSpan(text: isFrom ? "FROM " : "TO "),
+                const TextSpan(
+                  text: " NIGERIA",
+                ),
+              ]),
+              textStyle: TextStyle(
+                color: appTheme.primaryInverseColor.withOpacity(0.5),
+                fontSize: 7.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

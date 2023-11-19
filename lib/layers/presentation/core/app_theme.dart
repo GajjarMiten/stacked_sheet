@@ -5,6 +5,8 @@ import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';
 interface class IAppTheme {
   final Color primaryColor = const Color(0xff090808);
   final Color secondaryColor = const Color(0xffFF3A6F);
+  final Color greyColor = const Color(0xff272829);
+  final Color iosBlueColor = const Color(0xff5ac8fa);
 
   Color get primaryInverseColor => const Color(0xffffffff);
 

@@ -6,6 +6,7 @@ import 'package:stacked_sheet/layers/presentation/core/app_theme.dart';
 import 'package:stacked_sheet/layers/presentation/core/extensions/widget_extensions/sizedbox_extension.dart';
 import 'package:stacked_sheet/layers/presentation/flow/booking_page/view/booking_page.dart';
 import 'package:stacked_sheet/layers/presentation/gen/assets.gen.dart';
+import 'package:stacked_sheet/layers/presentation/shared/animations/fade_in_widget.dart';
 import 'package:stacked_sheet/layers/presentation/shared/custom_text.dart';
 import 'package:stacked_sheet/layers/presentation/utils/sizeconfig.dart';
 
@@ -35,7 +36,7 @@ class TrendingLocationUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final boxHeight = 60.h;
+    final boxHeight = 45.h;
     return SizedBox(
       height: boxHeight,
       width: double.infinity,
@@ -51,13 +52,17 @@ class TrendingLocationUI extends StatelessWidget {
             itemCount: allLocations.length,
             itemBuilder: (context, index, realIndex) {
               final data = allLocations[index];
-              return _TrendingPlaceContainerWrapper(
-                key: ValueKey(data.name),
-                trendingPlaceEntity: data,
+              return FadeInWidget(
+                durationInMills: 1000,
+                delayInMills: index * 100,
+                child: _TrendingPlaceContainerWrapper(
+                  key: ValueKey(data.name),
+                  trendingPlaceEntity: data,
+                ),
               );
             },
             options: CarouselOptions(
-              height: boxHeight * 0.7,
+              height: boxHeight - 50,
               viewportFraction: 0.79,
               enlargeCenterPage: true,
               enlargeStrategy: CenterPageEnlargeStrategy.zoom,
