@@ -1,16 +1,22 @@
-# stacked_sheet
+# Stacked Sheet View Framework
 
-A new Flutter project.
+This Project follows 'CLEAN ARCHITECTURE'. Implements 'StackedSheetView' in the **'lib -> presentation -> shared'** layer.
 
-## Getting Started
+The 'StackedSheetView' is a widget to create a stacked sheet interface, where multiple sheets can be opened and closed in a sequential manner. It utilizes various components to achieve its functionality. Below is a description of the key components used in the StackedSheetView:
 
-This project is a starting point for a Flutter application.
+## StackedSheetController:
 
-A few resources to get you started if this is your first Flutter project:
+- A controller class that extends ValueNotifier<int> to manage the state of the stacked sheets.
+- Keeps track of the currently opened sheet index and maintains a list of indices for sheets that are currently open.
+- Provides methods to open the next sheet, close the current sheet, close all sheets, and check whether a specific sheet is open.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## StackedSheetOptions:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- A configuration class that defines customizable options for the appearance and behavior of the stacked sheets.
+- Includes parameters such as animation duration, animation curve, sheet shape, sheet color, and specific durations and curves for opening and closing sheets.
+
+## StackedSheetItem:
+
+- A class representing an individual item in the stacked sheet.
+- Defines builders for the call-to-action widget at the bottom of the expanded sheet, the collapsed widget displayed when the sheet is closed, and the body of the expanded sheet.
+- Specifies the height of the collapsed widget when the sheet is closed
